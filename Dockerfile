@@ -1,5 +1,5 @@
-FROM mono
- 
+FROM mono:4.4.2.11
+
 MAINTAINER Seif Attar <iam@seifattar.net>
 
 RUN apt-get update \
@@ -17,7 +17,7 @@ RUN apt-get update \
             s!^(\s*ErrorLog)\s+\S+!\1 /proc/self/fd/2!g; \
             ' /etc/apache2/apache2.conf
 			
-RUN ln -s /etc/apache2/mods-enabled/mods-available/headers.load /etc/apache2/mods-enabledheaders.load
+RUN cd /etc/apache2/mods-enabled/ && ln -s ../mods-available/headers.load headers.load
 
 ADD ./config/apache2-site.conf /etc/apache2/sites-available/default
 
